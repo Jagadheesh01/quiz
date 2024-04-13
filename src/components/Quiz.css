@@ -1,0 +1,33 @@
+.timer-container {
+    width: 200px;
+    height: 20px;
+    border: 2px solid #ccc;
+    position: relative;
+    border-radius: 10px;
+  }
+  
+  .timer {
+    width: 0%;
+    height: 100%;
+    background-color: #007bff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: timer-animation 10s linear forwards;
+    border-radius: 10px;
+  }
+  
+  @keyframes timer-animation {
+    0% {
+      width: 0%;
+    }
+    75% {
+      width: 70%;
+      background-color: green;
+    }
+    100% {
+      width: 100%;
+      background-color: #ff0000;
+    }
+  }
+  
