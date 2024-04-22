@@ -5,7 +5,7 @@
     position: relative;
     border-radius: 10px;
   }
-  
+
   .timer {
     width: 0%;
     height: 100%;
@@ -31,3 +31,6 @@
     }
   }
   
+  label#field-\:r1\:-label{
+    padding:10px
+  }

@@ -1,4 +1,5 @@
 export {default as Login} from './Login';
-export {default as ToughnessPage} from './Toughnesspage';
+export {default as ToughnessPage} from './ToughnessPage';
 export {default as QuizPage} from './QuizPage';
-export {default as Signup} from './signup'
+export {default as Signup} from './SignUp';
+export {default as Result} from './Result'
