@@ -68,7 +68,7 @@ const login = () => {
         <Stack>
         <Text >
         Don't have an account?
-        <Link to="/signup" >
+        <Link to="/SignUp" >
           <Button  h={"2rem"} w={"4rem"} borderRadius={"1rem"} margin={"1rem"} _hover={{backgroundColor:"#55c2da",fontSize:"1rem",color:"white"}} border={"1px"}>Signup</Button>
           </Link>
         </Text>

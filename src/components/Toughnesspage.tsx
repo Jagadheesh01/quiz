@@ -1,7 +1,7 @@
 import { Button, HStack } from "@chakra-ui/react"
 import { Link } from "react-router-dom";
 
-const Toughnesspage = () => {
+const ToughnessPage = () => {
   return (
     
     <HStack
@@ -62,4 +62,4 @@ const Toughnesspage = () => {
   );
 };
 
-export default Toughnesspage
+export default ToughnessPage

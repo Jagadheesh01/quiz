@@ -4,6 +4,7 @@ import './Quiz.css';
 import { easyQuestions } from '../services';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import  Result from './Result';
 
 interface QuizData {
   questions: string[];
@@ -15,7 +16,7 @@ const QuizPage = () => {
   const [quizData, setQuizData] = useState<null | any[]>(null);
   const [questions, setQuestions] = useState([]);
   const [answer, setAnswer] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState([]);
+  const [correctAnswer, setCorrectAnswer] = useState<[]>([]);
   const [choices, setChoices] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showTimer,setShowtimer] = useState(false)
@@ -46,22 +47,35 @@ const QuizPage = () => {
     readData();
   }, []);
 
-  const handleSubmit = () => {
-    if (count < 6) {
-      setCount(count + 1);
-    }else{
-      history("/result");
-    }
-  };
+  // const handleSubmit = () => {
+  //   if (count < 6) {
+  //     setCount(count + 1);
+  //   }else{
+  //     history("/Result");
+  //   }
+  // };
     useEffect(() => {
     const timer = setTimeout(() => {
-      if (count < 6) {
+      if (count < 7) {
         setCount(count + 1);
         setShowtimer(false)
       } else {
-        history("/result");
+        // const data = answer?.filter((item:any)=>item?.score===true )
+        // setCorrectAnswer(data)
+        // console.log("data",data)
+        // history("/result");
       }
     }, 10000); 
+
+
+        if (count < 7) {
+          const data = answer?.filter((item:any)=>item?.score===true )
+          setCorrectAnswer(data)
+          console.log("data",data)
+        } else {
+          console.log("error1234")
+        }
+
 
     return () =>{
        clearTimeout(timer)
@@ -72,7 +86,7 @@ const QuizPage = () => {
   const handleAnswerClick = (id: number, label: string) => {
     console.log('clicked',id);
  
-    const selectedQuestion = questions?.[count - 1]
+    const selectedQuestion = questions?.[count - 1] as any
     const previousAnswers: any = [...answer];
     // previousAnswers.push({
     //   questionID: selectedQuestion.id,
@@ -81,24 +95,27 @@ const QuizPage = () => {
     //   questionLabel:selectedQuestion.questions,
     // })
     previousAnswers[count - 1] = {
-      questionID: selectedQuestion.id,
+      questionID: selectedQuestion?.id,
       answerID: id,
       answerLabel:label,
       questionLabel:selectedQuestion.questions,
+      correctOption : selectedQuestion.correct_option,
+      score: +id === +selectedQuestion.correct_option ? true : false
     }
     setAnswer(previousAnswers)
     setSelectedOption(id);
-    
+ const result = answer.score
+    console.log("first",result)
 
   };
  console.log("answer1",answer)
-//  console.log("=1=>",questions?.[count - 1])
-console.log(count)
+ console.log("=1=>",questions?.[count - 1])
 
 
 const answerID = answer[count - 1]?.answerID;
 console.log("====>123",answerID)
-
+// const resultAnswerId = data.map((item:any)=>{item.answerID})
+// const resultAnswer = data.map
 // const calculateResult = () => {
 //   let score = 0;
 //   answer.forEach((ans, index) => {
@@ -109,8 +126,11 @@ console.log("====>123",answerID)
 //   return score;
 // };
 
+
+
   return (
-    <VStack height={"100vh"} justifyContent={"center"}>
+    <>
+   { count < 7 ? <VStack height={"100vh"} justifyContent={"center"}>
       <Card alignItems={"center"} width={"50%"}>
        {showTimer && <Stack className="timer-container" height={"5px"} width={"65%"}>
           <Stack className="timer"></Stack>
@@ -164,7 +184,7 @@ console.log("====>123",answerID)
               </Button>
             ))}
           </UnorderedList>
-          <Button
+          {/* <Button
             borderRadius={"10px"}
             height={"2.5rem"}
             borderWidth={"1px"}
@@ -173,10 +193,11 @@ console.log("====>123",answerID)
             onClick={handleSubmit}
           >
             NEXT
-          </Button>
+          </Button> */}
         </Stack>
       </Card>
-    </VStack>
+    </VStack> : <Result count={correctAnswer?.length || 0} />}
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 'use client'
 import './App.css'
-import {  Login, QuizPage, Signup, ToughnessPage , Result } from './components'
+import {  Login, QuizPage, SignUp, ToughnessPage , Result } from './components'
 import { Route , Routes, BrowserRouter } from 'react-router-dom';
 
 
@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<Login />}  />
         <Route path="/toughnesspage"  element={<ToughnessPage />} />
         <Route path="/quizpage"  element={<QuizPage />} />
-        <Route path="/signup"  element={<Signup />} />
+        <Route path="/signup"  element={<SignUp />} />
         <Route path="/result"  element={<Result />} />
       </Routes>
     </BrowserRouter>

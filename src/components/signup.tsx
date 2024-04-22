@@ -6,7 +6,7 @@ import { sendNotification } from "../utils/notification";
 
 
 
-const signup = () => {
+const SignUp = () => {
 
   const [firstName,setFirstName] = useState("");
   const [lastName,setLastName] = useState("");
@@ -59,4 +59,4 @@ const signup = () => {
   );
 }
 
-export default signup
+export default SignUp
