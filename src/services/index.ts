@@ -49,3 +49,6 @@ let { data: auth } = await supabase
     console.log("something went wrong!",err)
   }
 }
+
+/* update scorepoints in supabase */
+

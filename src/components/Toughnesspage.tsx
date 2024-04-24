@@ -12,7 +12,7 @@ const ToughnessPage = () => {
     >
       <Link to={{pathname:'/quizpage',search:'diff=easy'}}>
         <Button
-        _hover={{backgroundColor:"#55c2da",color:"white",fontSize:"3rem",borderRadius:"20px", border:"2px solid white"}}
+        _hover={{backgroundColor:"lightgreen",boxShadow: "0 1rem 1rem -0.4rem white",transform:"translateY(-0.25em)",color:"#313638",transition:"all 0.5s ease",fontSize:"2rem",borderRadius:"2px", border:"2px solid white"}}
           padding={"2rem"}
           margin={"2rem"}
           background={"lightpink"}
@@ -28,7 +28,7 @@ const ToughnessPage = () => {
       </Link>
       <Link to={{pathname:'/quizpage',search:'diff=moderate'}}>
         <Button
-        _hover={{backgroundColor:"Green",color:"white",fontSize:"2rem",borderRadius:"20px", border:"2px solid white"}}
+        _hover={{backgroundColor:"#B2FFFF",boxShadow: "0 1rem 1rem -0.4rem #B2FFFF",transform:"translateY(-0.25em)",color:"#313638",fontSize:"1.5rem",transition:"all 0.5s ease",borderRadius:"2px", border:"2px solid white"}}
           padding={"2rem"}
           margin={"2rem"}
           background={"lightpink"}
@@ -44,7 +44,7 @@ const ToughnessPage = () => {
       </Link>
       <Link to={{pathname:'/quizpage',search:'diff=hard'}}>
         <Button
-        _hover={{backgroundColor:"red", color:"white",fontSize:"3rem",borderRadius:"20px", border:"2px solid white"}}
+        _hover={{backgroundColor:"#C60C30",boxShadow: "0 1rem 1rem -0.4rem #C60C30",transform:"translateY(-0.25em)", color:"#313638",fontSize:"2rem",transition:"all 0.5s ease",borderRadius:"2px", border:"2px solid white"}}
           padding={"2rem"}
           margin={"2rem"}
           background={"lightpink"}
@@ -52,7 +52,7 @@ const ToughnessPage = () => {
           borderRadius={"10px"}
           fontSize={"1.5rem"}
           width={"10rem"}
-          height={"3rem"}
+          height={"4rem"}
           cursor={"pointer"}
         >
           Hard

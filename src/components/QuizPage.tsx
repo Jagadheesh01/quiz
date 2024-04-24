@@ -6,19 +6,15 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import  Result from './Result';
 
-interface QuizData {
-  questions: string[];
-  options: string[][];
-}
+
 
 const QuizPage = () => {
   const [count, setCount] = useState(1);
-  const [quizData, setQuizData] = useState<null | any[]>(null);
+  // const [quizData, setQuizData] = useState<null | any[]>(null);
   const [questions, setQuestions] = useState([]);
   const [answer, setAnswer] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState<[]>([]);
   const [choices, setChoices] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [showTimer,setShowtimer] = useState(false)
   const history = useNavigate();
   const location = useLocation();
@@ -27,7 +23,7 @@ const QuizPage = () => {
     const searchParams = new URLSearchParams(location.search);
     const query = searchParams.get('diff');
     const data: any = await easyQuestions(query);
-    setQuizData(data);
+    // setQuizData(data);
     console.log("==>", data);
 
     if (data && data.length > 0) {
@@ -47,36 +43,28 @@ const QuizPage = () => {
     readData();
   }, []);
 
-  // const handleSubmit = () => {
-  //   if (count < 6) {
-  //     setCount(count + 1);
-  //   }else{
-  //     history("/Result");
-  //   }
-  // };
+  const handleSubmit = () => {
+    if (count < 7) {
+      setCount(count + 1);
+      setShowtimer(false)
+      const data = answer?.filter((item:any)=>item?.score===true )
+      console.log("data/length",data.length)
+      setCorrectAnswer(data)
+    }else{
+      
+      history("/Result");
+    }
+  };
     useEffect(() => {
     const timer = setTimeout(() => {
       if (count < 7) {
         setCount(count + 1);
         setShowtimer(false)
-      } else {
         // const data = answer?.filter((item:any)=>item?.score===true )
         // setCorrectAnswer(data)
-        // console.log("data",data)
-        // history("/result");
+      } else {
       }
     }, 10000); 
-
-
-        if (count < 7) {
-          const data = answer?.filter((item:any)=>item?.score===true )
-          setCorrectAnswer(data)
-          console.log("data",data)
-        } else {
-          console.log("error1234")
-        }
-
-
     return () =>{
        clearTimeout(timer)
        setShowtimer(true)
@@ -88,12 +76,7 @@ const QuizPage = () => {
  
     const selectedQuestion = questions?.[count - 1] as any
     const previousAnswers: any = [...answer];
-    // previousAnswers.push({
-    //   questionID: selectedQuestion.id,
-    //   answerID: id,
-    //   answerLabel:label,
-    //   questionLabel:selectedQuestion.questions,
-    // })
+
     previousAnswers[count - 1] = {
       questionID: selectedQuestion?.id,
       answerID: id,
@@ -103,9 +86,6 @@ const QuizPage = () => {
       score: +id === +selectedQuestion.correct_option ? true : false
     }
     setAnswer(previousAnswers)
-    setSelectedOption(id);
- const result = answer.score
-    console.log("first",result)
 
   };
  console.log("answer1",answer)
@@ -114,17 +94,7 @@ const QuizPage = () => {
 
 const answerID = answer[count - 1]?.answerID;
 console.log("====>123",answerID)
-// const resultAnswerId = data.map((item:any)=>{item.answerID})
-// const resultAnswer = data.map
-// const calculateResult = () => {
-//   let score = 0;
-//   answer.forEach((ans, index) => {
-//     if (ans && ans.answerLabel === correctOptions[index]) {
-//       score++;
-//     }
-//   });
-//   return score;
-// };
+
 
 
 
@@ -156,12 +126,7 @@ console.log("====>123",answerID)
               /6
             </Text>
           </Stack>
-          <Heading as="h2" size="xl">
-            {/* {questions.map((question, index) => (
-              <div key={index}>
-                {index + 1 === count && question}
-              </div>
-            ))} */}
+          <Heading as="h2" size="xl"> 
             {questions?.[count - 1]?.questions}
           </Heading>
           <UnorderedList padding={"0"} marginTop={"10px"} cursor={"pointer"} listStyleType={"none"}>
@@ -169,7 +134,10 @@ console.log("====>123",answerID)
               <Button
                 key={index}
                 height={"3rem"} 
-                border={answerID!==choice.id ?  "1px solid teal" : "2px solid #d08642"}
+                border={answerID!==choice.id ?  "1px solid #d08642" : "3px solid #d08642"}
+                background={answerID!==choice.id ?  "#fff" : "#150080"}
+                color={answerID!==choice.id ?  "black" : "#fff"}
+                fontSize={answerID!==choice.id ?  "" : "16px"}
                 width={"100%"}
                 cursor={"pointer"}
                 onClick={()=>handleAnswerClick(choice.id , choice.label)}
@@ -184,19 +152,25 @@ console.log("====>123",answerID)
               </Button>
             ))}
           </UnorderedList>
-          {/* <Button
-            borderRadius={"10px"}
-            height={"2.5rem"}
-            borderWidth={"1px"}
+          <Button
+          alignSelf={"center"}
+          width={"50%"} 
+          borderRadius={"9px"}
+          fontSize={"18px"}
+          color={"#fff"}
+          padding={"10px 42px"}
+          outline={"none"}
+          border={"none"}
+            // height={"2.5rem"}
             cursor={"pointer"}
-            backgroundColor={"white"}
             onClick={handleSubmit}
+            className={"next_button"}
           >
             NEXT
-          </Button> */}
+          </Button>
         </Stack>
       </Card>
-    </VStack> : <Result count={correctAnswer?.length || 0} />}
+    </VStack> : <Result count={+correctAnswer?.length || 0} />}
     </>
   );
 };

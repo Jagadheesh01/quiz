@@ -1,3 +1,6 @@
+*{
+  font-family: monospace;
+}
 .timer-container {
     width: 200px;
     height: 20px;
@@ -34,3 +37,7 @@
   label#field-\:r1\:-label{
     padding:10px
   }
+  #result_button,.next_button{
+    background: linear-gradient(0deg, #150080 .03%, #d08642);
+  }
+
